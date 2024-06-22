@@ -1,4 +1,4 @@
-local allproperties = {
+allproperties = {
 	Accessory = {
 		"AccessoryType"
 	},
