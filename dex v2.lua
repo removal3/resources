@@ -1703,6 +1703,7 @@ CreateGui = function()
     end
     local D_E_X = CreateGui()
     D_E_X.Parent = gethui()
+    D_E_X.ResetOnSpawn = false
     spawn(function()
         local Gui = D_E_X
         
