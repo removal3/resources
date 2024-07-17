@@ -5319,7 +5319,6 @@ CreateGui = function()
         local newObject = {ClassName = obj.ClassName, Properties = {}}
         for i,v in pairs(RbxApi.GetProperties(obj.className)) do
             if v["Name"] ~= "Parent" then
-                print("thispassed")
                 table.insert(newObject.Properties,{Name = v["Name"], Type = v["ValueType"], Value = tostring(obj[v["Name"]])})
             end
         end
