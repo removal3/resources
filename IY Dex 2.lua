@@ -912,23 +912,39 @@ local function main()
 	Explorer.InitRightClick = function()
 		local context = Lib.ContextMenu.new()
 
-		context:Register("CUT",{Name = "Cut", IconMap = Explorer.MiscIcons, Icon = "Cut", DisabledIcon = "Cut_Disabled", Shortcut = "Ctrl+Z", OnClick = function()
-			local clone = game.Clone
-            local destroy do if destroyremote then destroy = deleteinstance else destroy = game.Destroy end
-			local sList,newClipboard = selection.List,{}
-			local count = 1
-			for i = 1,#sList do
-				local inst = sList[i].Obj
-				local s,cloned = pcall(clone,inst)
-				if s and cloned then
-					newClipboard[count] = cloned
-					count = count + 1
+		context:Register("CUT", {
+			Name = "Cut",
+			IconMap = Explorer.MiscIcons,
+			Icon = "Cut",
+			DisabledIcon = "Cut_Disabled",
+			Shortcut = "Ctrl+Z",
+			OnClick = function()
+				local clone = function(obj) return obj:Clone() end
+				local destroy
+		
+				if destroyremote then 
+					destroy = deleteinstance 
+				else 
+					destroy = function(obj) obj:Destroy() end
 				end
-				pcall(destroy,inst)
+		
+				local sList, newClipboard = selection.List, {}
+				local count = 1
+		
+				for i = 1, #sList do
+					local inst = sList[i].Obj
+					local s, cloned = pcall(clone, inst)
+					if s and cloned then
+						newClipboard[count] = cloned
+						count = count + 1
+					end
+					pcall(destroy, inst)
+				end
+		
+				clipboard = newClipboard
+				selection:Clear()
 			end
-			clipboard = newClipboard
-			selection:Clear()
-		end})
+		})		
 
 		context:Register("COPY",{Name = "Copy", IconMap = Explorer.MiscIcons, Icon = "Copy", DisabledIcon = "Copy_Disabled", Shortcut = "Ctrl+C", OnClick = function()
 			local clone = game.Clone
@@ -993,14 +1009,28 @@ local function main()
 			end
 		end})
 
-		context:Register("DELETE",{Name = "Delete", IconMap = Explorer.MiscIcons, Icon = "Delete", DisabledIcon = "Delete_Disabled", Shortcut = "Del", OnClick = function()
-			local destroy do if destroyremote then destroy = deleteinstance else destroy = game.Destroy end
-			local sList = selection.List
-			for i = 1,#sList do
-				pcall(destroy,sList[i].Obj)
+		context:Register("DELETE", {
+			Name = "Delete",
+			IconMap = Explorer.MiscIcons,
+			Icon = "Delete",
+			DisabledIcon = "Delete_Disabled",
+			Shortcut = "Del",
+			OnClick = function()
+				local destroy
+				if destroyremote then
+					destroy = deleteinstance
+				else
+					destroy = function(obj) obj:Destroy() end
+				end
+		
+				local sList = selection.List
+				for i = 1, #sList do
+					pcall(destroy, sList[i].Obj)
+				end
+				selection:Clear()
 			end
-			selection:Clear()
-		end})
+		})
+		
 
 		context:Register("RENAME",{Name = "Rename", IconMap = Explorer.MiscIcons, Icon = "Rename", DisabledIcon = "Rename_Disabled", Shortcut = "F2", OnClick = function()
 			local sList = selection.List
