@@ -923,7 +923,7 @@ local function main()
 				local destroy
 		
 				if destroyremote then 
-					destroy = deleteinstance 
+					destroy = _G.deleteinstance 
 				else 
 					destroy = function(obj) obj:Destroy() end
 				end
@@ -1018,7 +1018,7 @@ local function main()
 			OnClick = function()
 				local destroy
 				if destroyremote then
-					destroy = deleteinstance
+					destroy = _G.deleteinstance
 				else
 					destroy = function(obj) obj:Destroy() end
 				end
