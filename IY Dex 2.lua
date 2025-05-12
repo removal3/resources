@@ -12,6 +12,7 @@
 local nodes = {}
 local selection
 local cloneref = cloneref or function(...) return ... end
+local genv = (getgenv and (getgenv() ~= getfenv()) and getgenv()) or _G
 
 local EmbeddedModules = {
 Explorer = function()
@@ -922,8 +923,8 @@ local function main()
 				local clone = function(obj) return obj:Clone() end
 				local destroy
 		
-				if destroyremote then 
-					destroy = _G.deleteinstance 
+				if genv.deleteinstance ~= nil then 
+					destroy = genv.deleteinstance 
 				else 
 					destroy = function(obj) obj:Destroy() end
 				end
@@ -1017,8 +1018,8 @@ local function main()
 			Shortcut = "Del",
 			OnClick = function()
 				local destroy
-				if destroyremote then
-					destroy = _G.deleteinstance
+				if genv.deleteinstance ~= nil then
+					destroy = genv.deleteinstance
 				else
 					destroy = function(obj) obj:Destroy() end
 				end
