@@ -23,5 +23,12 @@
   "FFlagControlBetaBadgeWithGuac": "False",
   "FStringVoiceBetaBadgeLearnMoreLink": "null",
   "DFIntCanHideGuiGroupId": "32363310",
-  "FFlagAdServiceEnabled": "False"
+  "FFlagAdServiceEnabled": "False",
+  "FFlagRenameFriendsToConnections": false,
+  "FFlagRenameFriendsToConnectionsAppChat2": false,
+  "FFlagRenameFriendsToConnectionsCoreUI": false,
+  "FFlagRenameFriendsToConnectionsFriendsMenu": false,
+  "FFlagRenameFriendsToConnectionsFriendsPage": false,
+  "FFlagRenameFriendsToConnectionsPartyLobby": false,
+  "FFlagRenameFriendsToConnectionsProfile": false
 }
